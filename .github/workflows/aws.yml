@@ -32,7 +32,7 @@ on:
 
 env:
   AWS_REGION: eu-central-1
-  ECR_REPOSITORY: https://github.com/terraform-aws-modules/terraform-aws-ecs
+  ECR_REPOSITORY: estate-doc-flow
   ECS_SERVICE: estate-doc-flow
   ECS_CLUSTER: estate-doc-flow
   ECS_TASK_DEFINITION: .aws/task-definition.json
