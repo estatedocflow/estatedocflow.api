@@ -5,7 +5,6 @@ run the commnad set confuguration setting
 
 $ docker run -d  --name my-rabbit -p 15672:15672 -p 5672:5672  rabbitmq:management
 
-----------------------
 yml file settings
 
 version: '3.8'
@@ -37,4 +36,3 @@ services:
       POSTGRES_PASSWORD: "admin"
     ports:
       - "5432:5432"
-
