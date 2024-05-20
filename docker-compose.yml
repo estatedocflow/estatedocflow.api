@@ -11,10 +11,19 @@ services:
       - rabbitmq
 
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3-management
     ports:
       - "5672:5672"  # RabbitMQ default port for AMQP
       - "15672:15672"  # RabbitMQ management console port
     environment:
-      RABBITMQ_DEFAULT_USER: "admin"
-      RABBITMQ_DEFAULT_PASS: "password"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: "real_estate_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "5432:5432"

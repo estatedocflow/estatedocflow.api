@@ -10,7 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0" />
     <PackageReference Include="RabbitMQ.Client" Version="3.6.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="polly" Version="7.2.0" />
@@ -18,7 +25,15 @@
 
   <ItemGroup>
     <Folder Include="Contracts\" />
-    <Folder Include="Services\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="AutoMapper\" />
+    <Folder Include="Common\" />
+    <Folder Include="Infrastructure\ModelConfiguration\" />
+    <Folder Include="Services\Common\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\estatedocflow.Models\estatedocflow.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,11 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "estatedocflow.api", "estatedocflow.api.csproj", "{91A8BC62-7B15-433B-8795-C10CFCB6E400}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "estatedocflow.RabbitMQ", "..\estatedocflow.RabbitMQ\estatedocflow.RabbitMQ.csproj", "{CFA3165A-0162-4E97-8F98-55FE939CBFE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "estatedocflow.RabbitMQ", "..\estatedocflow.RabbitMQ\estatedocflow.RabbitMQ.csproj", "{CFA3165A-0162-4E97-8F98-55FE939CBFE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "estatedocflow.Models", "..\estatedocflow.Models\estatedocflow.Models.csproj", "{0C365A64-CE76-4790-BBC1-23BD23FEE2BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "estatedocflow.Data", "..\estatedocflow.Data\estatedocflow.Data.csproj", "{B8A7DE62-2F5A-4831-854F-7A9B2C9362C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{CFA3165A-0162-4E97-8F98-55FE939CBFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA3165A-0162-4E97-8F98-55FE939CBFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFA3165A-0162-4E97-8F98-55FE939CBFE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C365A64-CE76-4790-BBC1-23BD23FEE2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C365A64-CE76-4790-BBC1-23BD23FEE2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C365A64-CE76-4790-BBC1-23BD23FEE2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C365A64-CE76-4790-BBC1-23BD23FEE2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8A7DE62-2F5A-4831-854F-7A9B2C9362C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8A7DE62-2F5A-4831-854F-7A9B2C9362C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8A7DE62-2F5A-4831-854F-7A9B2C9362C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8A7DE62-2F5A-4831-854F-7A9B2C9362C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
