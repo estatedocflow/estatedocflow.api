@@ -15,13 +15,13 @@ namespace estatedocflow.api.Extensions
         {
             app.Services.AddScoped<RealEstateDbContext>();
             app.Services.AddScoped<IHouseRepository, HouseRepository>();
-            app.Services.AddScoped<IHousePhotoRepository, HousePhotoRepository>();
+            app.Services.AddScoped<IHouseAttachmentRepository, HouseAttachmentRepository>();
         }
         public static void ConfigureService(this WebApplicationBuilder app)
         {
-
+            
             app.Services.AddScoped<IRabbitMQService, RabbitMQService>();
             app.Services.AddScoped<IHouseService, HouseService>();
-        }
+        }        
     }
 }

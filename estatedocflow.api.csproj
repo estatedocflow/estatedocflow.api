@@ -24,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\estatedocflow.Data\estatedocflow.Data.csproj" />
     <ProjectReference Include="..\estatedocflow.Models\estatedocflow.Models.csproj" />
   </ItemGroup>
