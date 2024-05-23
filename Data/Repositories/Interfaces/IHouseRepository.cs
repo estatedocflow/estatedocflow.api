@@ -1,6 +1,8 @@
-﻿namespace estatedocflow.api.Data.Repositories.Interfaces;
+﻿using estatedocflow.api.Data.Repositories.Base;
+using estatedocflow.api.Models.Entities;
 
-public interface IHouseRepository
+namespace estatedocflow.api.Data.Repositories.Interfaces;
+
+public interface IHouseRepository : IRepositoryBase<House>
 {
-    
 }

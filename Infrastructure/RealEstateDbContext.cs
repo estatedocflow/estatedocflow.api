@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using estatedocflow.api.Models.Entities;
+using System.Reflection.Metadata;
+using Document = estatedocflow.api.Models.Entities.Document;
 
 namespace estatedocflow.api.Infrastructure
 {
-    public class RealEstateDbContext(
-        DbContextOptions<RealEstateDbContext> options,
-        IConfiguration config,
-        DbSet<House> houses,
-        DbSet<HousePhoto> housePhotos)
-        : DbContext(options)
+    public class RealEstateDbContext : DbContext
     {
-        private readonly IConfiguration _config = config ?? throw new ArgumentNullException(nameof(config));
-
+        private IConfiguration _config;
+        public RealEstateDbContext(DbContextOptions<RealEstateDbContext> options, IConfiguration config) : base(options)
+        {
+            _config = config ?? throw new ArgumentNullException(nameof(config));
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql(_config.GetConnectionString("DefaultConnection"), opt =>
@@ -21,8 +21,8 @@ namespace estatedocflow.api.Infrastructure
         }
 
         //Tables
-
-        public DbSet<House> Houses { get; set; } = houses;
-        public DbSet<HousePhoto> HousePhotos { get; set; } = housePhotos;
+        public DbSet<House> Houses { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<HouseAttachment> HouseAttachments { get; set; }
     }
 }

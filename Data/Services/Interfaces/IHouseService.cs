@@ -10,4 +10,7 @@ public interface IHouseService
     Task<ServiceResponse<HouseDto?>> Delete(Guid id);
     Task<ServiceResponse<HouseDto>> Update(HouseDto houseDto);
     Task<ServiceResponse<HouseDto>> UpdateHouseState(Guid id, PatchHouseStateDto patchStateDto);
+    Task<ServiceResponse<HouseDto>> UploadPhoto(Guid houseId, PatchPhotoDto patchPhotoDto);
+    Task<ServiceResponse<HouseDto>> UploadDocument(Guid houseId, PatchDocumentDto patchDocumentDto);
+
 }
