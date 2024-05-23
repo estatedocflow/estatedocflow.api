@@ -22,5 +22,4 @@ namespace estatedocflow.api.Extensions
             app.Services.AddScoped<IHouseService, HouseService>();
         }        
     }
-    
 }
