@@ -18,8 +18,6 @@ builder.Services.AddDbContext<RealEstateDbContext>(options => options.UseNpgsql(
 //Services
 builder.Services.AddScoped<IRabbitMQService, RabbitMQService>();
 
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
