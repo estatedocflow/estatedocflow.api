@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using estatedocflow.Models.Dtos.House;
-using estatedocflow.Models.Entities.House;
-using estatedocflow.Models.Entities.Shared;
+using estatedocflow.api.Models.Dtos;
+using estatedocflow.api.Models.Entities;
 
 namespace estatedocflow.api.AutoMapper
 {
@@ -9,10 +8,8 @@ namespace estatedocflow.api.AutoMapper
     {
         public HouseProfile()
         {
-            CreateMap<House, HouseDto>();
-            CreateMap<HouseDto, House>();
-            CreateMap<HouseAttachment, HouseAttachmentDto>();
-            CreateMap<HouseAttachmentDto, HouseAttachment>();
+            CreateMap<House, HouseDto>().ReverseMap();
+            CreateMap<HouseAttachment, HouseAttachmentDto>().ReverseMap();
         }
     }
 }

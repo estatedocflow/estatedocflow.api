@@ -1,38 +1,27 @@
-﻿using estatedocflow.Data.Repositories.IRepository.House;
-using estatedocflow.Data.Services.Iservice;
-using estatedocflow.Models.Dtos.House;
-using estatedocflow.Models.Dtos.Shared;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.Common;
 using System.Net;
+using estatedocflow.api.Data.Services.Interfaces;
+using estatedocflow.api.Models.Dtos;
 
 namespace estatedocflow.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HouseController : ControllerBase
+    public class HouseController(IHouseService houseService) : ControllerBase
     {
-        private readonly IHouseService _houseService;
-        public HouseController(IHouseService houseService)
-        {
-            _houseService = houseService;
-        }
-
         [HttpGet("list")]
         public async Task<ServiceResponse<List<HouseDto>>> List()
         {
             var sr = new ServiceResponse<List<HouseDto>>();
             try
             {
-                sr = await _houseService.List();
-                if (sr.Data != null)
-                {
-                    sr.Success = true;
-                    sr.Code = sr.Code;
-                    sr.Message = $"{sr.Data.Count()} Record found.";
-                    sr.Data = sr.Data;
-                    return sr;
-                }
+                sr = await houseService.List();
+                sr.Success = true;
+                sr.Code = sr.Code;
+                sr.Message = $"{sr.Data.Count} Record found.";
+                sr.Data = sr.Data;
+                return sr;
             }
             catch (DbException ex)
             {
@@ -53,8 +42,8 @@ namespace estatedocflow.api.Controllers
             var sr = new ServiceResponse<HouseDto>();
             try
             {
-                sr = await _houseService.Create(houseDto);
-                if (sr.Success == true)
+                sr = await houseService.Create(houseDto);
+                if (sr.Success)
                 {
                     sr.Success = true;
                     sr.Code = sr.Code;
@@ -70,7 +59,7 @@ namespace estatedocflow.api.Controllers
             catch (Exception ex)
             {
                 sr.Code = sr.Code;
-                sr.Message = $"{ex.Message}, House not inserted, something went wrong.";
+                sr.Message = $"{ex.Message}, HouseDto not inserted, something went wrong.";
             }
             return sr;
         }
@@ -81,15 +70,12 @@ namespace estatedocflow.api.Controllers
             var sr = new ServiceResponse<HouseDto>();
             try
             {
-                sr = await _houseService.Get(id);
-                if (sr.Data != null)
-                {
-                    sr.Success = true;
-                    sr.Code = sr.Code;
-                    sr.Message = sr.Message;
-                    sr.Data = sr.Data;
-                    return sr;
-                }
+                sr = await houseService.Get(id);
+                sr.Success = true;
+                sr.Code = sr.Code;
+                sr.Message = sr.Message;
+                sr.Data = sr.Data;
+                return sr;
             }
             catch (DbException ex)
             {
@@ -105,20 +91,17 @@ namespace estatedocflow.api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ServiceResponse<HouseDto>> Delete(Guid id)
+        public async Task<ServiceResponse<HouseDto?>> Delete(Guid id)
         {
-            var sr = new ServiceResponse<HouseDto>();
+            var sr = new ServiceResponse<HouseDto?>();
             try
             {
-                sr = await _houseService.Delete(id);
-                if (sr.Data != null)
-                {
-                    sr.Success = true;
-                    sr.Code = sr.Code;
-                    sr.Message = sr.Message;
-                    sr.Data = null;
-                    return sr;
-                }
+                sr = await houseService.Delete(id);
+                sr.Success = true;
+                sr.Code = sr.Code;
+                sr.Message = sr.Message;
+                sr.Data = null;
+                return sr;
             }
             catch (DbException ex)
             {
@@ -139,8 +122,8 @@ namespace estatedocflow.api.Controllers
             var sr = new ServiceResponse<HouseDto>();
             try
             {
-                sr = await _houseService.Update(houseDto);
-                if (sr.Success == true)
+                sr = await houseService.Update(houseDto);
+                if (sr.Success)
                 {
                     sr.Success = true;
                     sr.Code = sr.Code;
@@ -156,7 +139,7 @@ namespace estatedocflow.api.Controllers
             catch (Exception ex)
             {
                 sr.Code = sr.Code;
-                sr.Message = $"{ex.Message}, House not updated, something went wrong.";
+                sr.Message = $"{ex.Message}, HouseDto not updated, something went wrong.";
             }
             return sr;
         }
@@ -167,8 +150,8 @@ namespace estatedocflow.api.Controllers
             var sr = new ServiceResponse<HouseDto>();
             try
             {
-                sr = await _houseService.UpdateHouseState(id, patchStateDto);
-                if (sr.Success == true)
+                sr = await houseService.UpdateHouseState(id, patchStateDto);
+                if (sr.Success)
                 {
                     sr.Success = true;
                     sr.Code = sr.Code;
@@ -184,7 +167,7 @@ namespace estatedocflow.api.Controllers
             catch (Exception ex)
             {
                 sr.Code = sr.Code;
-                sr.Message = $"{ex.Message}, House not updated, something went wrong.";
+                sr.Message = $"{ex.Message}, HouseDto not updated, something went wrong.";
             }
             return sr;
         }
