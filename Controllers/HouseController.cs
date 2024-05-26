@@ -1,10 +1,9 @@
-﻿using estatedocflow.Data.Repositories.IRepository.House;
-using estatedocflow.Data.Services.Iservice;
-using estatedocflow.Models.Dtos.House;
-using estatedocflow.Models.Dtos.Shared;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.Common;
 using System.Net;
+using estatedocflow.api.Data.Services.Interfaces;
+using estatedocflow.api.Models.Dtos;
+using estatedocflow.api.Data.Services;
 
 namespace estatedocflow.api.Controllers
 {
@@ -25,14 +24,11 @@ namespace estatedocflow.api.Controllers
             try
             {
                 sr = await _houseService.List();
-                if (sr.Data != null)
-                {
-                    sr.Success = true;
-                    sr.Code = sr.Code;
-                    sr.Message = $"{sr.Data.Count()} Record found.";
-                    sr.Data = sr.Data;
-                    return sr;
-                }
+                sr.Success = true;
+                sr.Code = sr.Code;
+                sr.Message = $"{sr.Data.Count} Record found.";
+                sr.Data = sr.Data;
+                return sr;
             }
             catch (DbException ex)
             {
@@ -54,7 +50,7 @@ namespace estatedocflow.api.Controllers
             try
             {
                 sr = await _houseService.Create(houseDto);
-                if (sr.Success == true)
+                if (sr.Success)
                 {
                     sr.Success = true;
                     sr.Code = sr.Code;
@@ -66,6 +62,11 @@ namespace estatedocflow.api.Controllers
                     sr.Code = sr.Code;
                     sr.Message = sr.Message;
                 }
+            }
+            catch (DbException ex)
+            {
+                sr.Code = (int)HttpStatusCode.NotImplemented;
+                sr.Message = ex.Message;
             }
             catch (Exception ex)
             {
@@ -82,14 +83,11 @@ namespace estatedocflow.api.Controllers
             try
             {
                 sr = await _houseService.Get(id);
-                if (sr.Data != null)
-                {
-                    sr.Success = true;
-                    sr.Code = sr.Code;
-                    sr.Message = sr.Message;
-                    sr.Data = sr.Data;
-                    return sr;
-                }
+                sr.Success = true;
+                sr.Code = sr.Code;
+                sr.Message = sr.Message;
+                sr.Data = sr.Data;
+                return sr;
             }
             catch (DbException ex)
             {
@@ -105,20 +103,17 @@ namespace estatedocflow.api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ServiceResponse<HouseDto>> Delete(Guid id)
+        public async Task<ServiceResponse<HouseDto?>> Delete(Guid id)
         {
-            var sr = new ServiceResponse<HouseDto>();
+            var sr = new ServiceResponse<HouseDto?>();
             try
             {
                 sr = await _houseService.Delete(id);
-                if (sr.Data != null)
-                {
-                    sr.Success = true;
-                    sr.Code = sr.Code;
-                    sr.Message = sr.Message;
-                    sr.Data = null;
-                    return sr;
-                }
+                sr.Success = true;
+                sr.Code = sr.Code;
+                sr.Message = sr.Message;
+                sr.Data = null;
+                return sr;
             }
             catch (DbException ex)
             {
@@ -140,7 +135,7 @@ namespace estatedocflow.api.Controllers
             try
             {
                 sr = await _houseService.Update(houseDto);
-                if (sr.Success == true)
+                if (sr.Success)
                 {
                     sr.Success = true;
                     sr.Code = sr.Code;
@@ -152,6 +147,11 @@ namespace estatedocflow.api.Controllers
                     sr.Code = sr.Code;
                     sr.Message = sr.Message;
                 }
+            }
+            catch (DbException ex)
+            {
+                sr.Code = (int)HttpStatusCode.NotImplemented;
+                sr.Message = ex.Message;
             }
             catch (Exception ex)
             {
@@ -168,7 +168,7 @@ namespace estatedocflow.api.Controllers
             try
             {
                 sr = await _houseService.UpdateHouseState(id, patchStateDto);
-                if (sr.Success == true)
+                if (sr.Success)
                 {
                     sr.Success = true;
                     sr.Code = sr.Code;
@@ -181,10 +181,81 @@ namespace estatedocflow.api.Controllers
                     sr.Message = sr.Message;
                 }
             }
+            catch (DbException ex)
+            {
+                sr.Code = (int)HttpStatusCode.NotImplemented;
+                sr.Message = ex.Message;
+            }
             catch (Exception ex)
             {
                 sr.Code = sr.Code;
-                sr.Message = $"{ex.Message}, House not updated, something went wrong.";
+                sr.Message = $"{ex.Message}, House state not updated, something went wrong.";
+            }
+            return sr;
+        }
+
+        [HttpPatch("{id}/photo")]
+        public async Task<ServiceResponse<HouseDto>> UploadPhoto(Guid id, PatchPhotoDto patchPhotoDto)
+        {
+            var sr = new ServiceResponse<HouseDto>();
+            try
+            {
+                sr = await _houseService.UploadPhoto(id, patchPhotoDto);
+                if (sr.Success)
+                {
+                    sr.Success = true;
+                    sr.Code = sr.Code;
+                    sr.Message = sr.Message;
+                }
+                else
+                {
+                    sr.Success = false;
+                    sr.Code = sr.Code;
+                    sr.Message = sr.Message;
+                }
+            }
+            catch (DbException ex)
+            {
+                sr.Code = (int)HttpStatusCode.NotImplemented;
+                sr.Message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                sr.Code = sr.Code;
+                sr.Message = $"{ex.Message}, House photo not uploaded, something went wrong.";
+            }
+            return sr;
+        }
+
+        [HttpPatch("{id}/document")]
+        public async Task<ServiceResponse<HouseDto>> UploadDocument(Guid id, PatchDocumentDto patchDocumentDto)
+        {
+            var sr = new ServiceResponse<HouseDto>();
+            try
+            {
+                sr = await _houseService.UploadDocument(id, patchDocumentDto);
+                if (sr.Success)
+                {
+                    sr.Success = true;
+                    sr.Code = sr.Code;
+                    sr.Message = sr.Message;
+                }
+                else
+                {
+                    sr.Success = false;
+                    sr.Code = sr.Code;
+                    sr.Message = sr.Message;
+                }
+            }
+            catch (DbException ex)
+            {
+                sr.Code = (int)HttpStatusCode.NotImplemented;
+                sr.Message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                sr.Code = sr.Code;
+                sr.Message = $"{ex.Message}, House document not uploaded, something went wrong.";
             }
             return sr;
         }
