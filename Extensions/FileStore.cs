@@ -17,19 +17,19 @@ namespace estatedocflow.api.Extensions
         public async Task<ServiceResponse<string>> UploadDocument(string filePath, string keyName)
         {
             var sr = new ServiceResponse<string>();
-            string bucketName = _config.GetSection("AWSCredentials").GetValue<string>("BucketName");
-            string AccessKey = _config.GetSection("AWSCredentials").GetValue<string>("AccessKey");
-            string SecreyKey = _config.GetSection("AWSCredentials").GetValue<string>("SecreyKey");
+            var bucketName = _config.GetSection("AWSCredentials").GetValue<string>("BucketName");
+            var AccessKey = _config.GetSection("AWSCredentials").GetValue<string>("AccessKey");
+            var SecreyKey = _config.GetSection("AWSCredentials").GetValue<string>("SecreyKey");
 
-            BasicAWSCredentials credentials = new BasicAWSCredentials(AccessKey, SecreyKey);
+            var credentials = new BasicAWSCredentials(AccessKey, SecreyKey);
 
             // Create a new Amazon S3 client
-            AmazonS3Client s3Client = new AmazonS3Client(credentials, Amazon.RegionEndpoint.USWest2);
+            var s3Client = new AmazonS3Client(credentials, Amazon.RegionEndpoint.USWest2);
 
             try
             {
                 // Upload the file to Amazon S3
-                TransferUtility fileTransferUtility = new TransferUtility(s3Client);
+                var fileTransferUtility = new TransferUtility(s3Client);
                 fileTransferUtility.Upload(filePath, bucketName, keyName);
                 sr.Success = true;
                 sr.Code = (int)HttpStatusCode.OK;

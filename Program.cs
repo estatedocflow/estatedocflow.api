@@ -3,7 +3,6 @@ using estatedocflow.api.AutoMapper;
 using estatedocflow.api.Extensions;
 using estatedocflow.api.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 
 // Register the DbContext
-builder.Services.AddDbContext<RealEstateDbContext>(options =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<RealEstateDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Start Registering and Initializing AutoMapper
 var mapperConfig = new MapperConfiguration(mc =>

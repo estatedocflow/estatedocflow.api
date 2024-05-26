@@ -5,9 +5,8 @@ using estatedocflow.api.Extensions;
 using estatedocflow.api.Models.Dtos;
 using estatedocflow.api.Models.Entities;
 using estatedocflow.api.Models.Enums;
-using Microsoft.EntityFrameworkCore;
 using System.Net;
-using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace estatedocflow.api.Data.Services;
 
@@ -33,12 +32,12 @@ public class HouseService : IHouseService
         try
         {
             var list = _houseRepo.FindAll().ToList();
-            var AttachmentList = _houseAttachmentRepo.FindAll().ToList();
-            List<HouseDto> houseList = _mapper.Map<List<HouseDto>>(list);
+            var attachmentList = _houseAttachmentRepo.FindAll().ToList();
+            var houseList = _mapper.Map<List<HouseDto>>(list);
 
             foreach (var house in houseList)
             {
-                house.AttachmentDto = _mapper.Map<List<HouseAttachmentDto>>(AttachmentList.Where(a => a.HouseId == house.Id).ToList());
+                house.AttachmentDto = _mapper.Map<List<HouseAttachmentDto>>(attachmentList.Where(a => a.HouseId == house.Id).ToList());
             }
             if (houseList != null)
             {
@@ -64,7 +63,7 @@ public class HouseService : IHouseService
         {
             if (houseDto != null)
             {
-                House house = _mapper.Map<House>(houseDto);
+                var house = _mapper.Map<House>(houseDto);
                 List<HouseAttachmentDto> attachment = new List<HouseAttachmentDto>();
                 if (house != null)
                 {
@@ -109,7 +108,7 @@ public class HouseService : IHouseService
             if (house != null)
             {
 
-                HouseDto houseDto = _mapper.Map<HouseDto>(house);
+                var houseDto = _mapper.Map<HouseDto>(house);
                 houseDto.AttachmentDto = _mapper.Map<List<HouseAttachmentDto>>(attachments);
 
                 sr.Success = true;
@@ -164,7 +163,7 @@ public class HouseService : IHouseService
         {
             if (houseDto.Id != null || houseDto.Id != Guid.Empty)
             {
-                House house = _mapper.Map<House>(houseDto);
+                var house = _mapper.Map<House>(houseDto);
                 List<HouseAttachmentDto> attachment = new List<HouseAttachmentDto>();
                 if (house != null)
                 {
@@ -247,7 +246,7 @@ public class HouseService : IHouseService
                 _houseRepo.Update(house);
                 await _houseRepo.SaveChangesAsync();
 
-                HouseDto houseDto = _mapper.Map<HouseDto>(house);
+                var houseDto = _mapper.Map<HouseDto>(house);
                 houseDto.AttachmentDto = _mapper.Map<List<HouseAttachmentDto>>(attachments);
 
                 sr.Success = true;
@@ -291,11 +290,11 @@ public class HouseService : IHouseService
                 //{
                 //    await _fileStore.UploadDocument(houseAttachment.PhotoUrl, keyName);
                 //}
-                List<HouseAttachment> attachments = _mapper.Map<List<HouseAttachment>>(houseAttachments);
+                var attachments = _mapper.Map<List<HouseAttachment>>(houseAttachments);
                 _houseAttachmentRepo.BulkCreate(attachments.AsQueryable());
                 await _houseAttachmentRepo.SaveChangesAsync();
 
-                HouseDto house = new HouseDto();
+                var house = new HouseDto();
                 var houseObj = await _houseRepo.FindByCondition(a => a.Id == houseId).FirstOrDefaultAsync();
                 var attachmentsObj = _houseAttachmentRepo.FindByCondition(a => a.HouseId == houseId).ToList();
                 if (houseObj != null)
@@ -341,11 +340,11 @@ public class HouseService : IHouseService
                     DocumentType = DocumentType.Document
                 }).ToList();
 
-                List<HouseAttachment> attachments = _mapper.Map<List<HouseAttachment>>(houseAttachments);
+                var attachments = _mapper.Map<List<HouseAttachment>>(houseAttachments);
                 _houseAttachmentRepo.BulkCreate(attachments.AsQueryable());
                 await _houseAttachmentRepo.SaveChangesAsync();
 
-                HouseDto house = new HouseDto();
+                var house = new HouseDto();
                 var houseObj = await _houseRepo.FindByCondition(a => a.Id == houseId).FirstOrDefaultAsync();
                 var attachmentsObj = _houseAttachmentRepo.FindByCondition(a => a.HouseId == houseId).ToList();
                 if (houseObj != null)

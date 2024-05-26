@@ -1,7 +1,7 @@
 ﻿version: '3.8'
 
 services:
-  myapp:
+  estate-doc-flow:
     build:
       context: .
       dockerfile: Dockerfile
