@@ -1,4 +1,8 @@
-using estatedocflow.api.RabbitMQ;
+using AutoMapper;
+using estatedocflow.api.AutoMapper;
+using estatedocflow.api.Extensions;
+using estatedocflow.api.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +13,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IRabbitMQService, RabbitMQService>();
+
+// Register the DbContext
+builder.Services.AddDbContext<RealEstateDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Start Registering and Initializing AutoMapper
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new HouseProfile());
+});
+
+var mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.ConfigureRepository();
+builder.ConfigureService();
 
 var app = builder.Build();
 

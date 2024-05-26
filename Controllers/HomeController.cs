@@ -1,7 +1,5 @@
 ﻿using estatedocflow.api.RabbitMQ;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RabbitMQ.Client;
 
 namespace estatedocflow.api.Controllers
 {
@@ -10,11 +8,10 @@ namespace estatedocflow.api.Controllers
     public class HomeController : ControllerBase
     {
         private readonly IRabbitMQService _rabbitMQService;
-        public HomeController(IRabbitMQService rabbitMQService)
+        public HomeController(IRabbitMQService rabbitMqService)
         {
-            _rabbitMQService = rabbitMQService;
+            _rabbitMQService = rabbitMqService;
         }
-
         [HttpGet]
         public IActionResult Index()
         {
