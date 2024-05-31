@@ -18,10 +18,10 @@ namespace estatedocflow.api.Extensions
         {
             var sr = new ServiceResponse<string>();
             var bucketName = _config.GetSection("AWSCredentials").GetValue<string>("BucketName");
-            var AccessKey = _config.GetSection("AWSCredentials").GetValue<string>("AccessKey");
-            var SecreyKey = _config.GetSection("AWSCredentials").GetValue<string>("SecreyKey");
+            var accessKey = _config.GetSection("AWSCredentials").GetValue<string>("AccessKey");
+            var secreyKey = _config.GetSection("AWSCredentials").GetValue<string>("SecreyKey");
 
-            var credentials = new BasicAWSCredentials(AccessKey, SecreyKey);
+            var credentials = new BasicAWSCredentials(accessKey, secreyKey);
 
             // Create a new Amazon S3 client
             var s3Client = new AmazonS3Client(credentials, Amazon.RegionEndpoint.USWest2);

@@ -1,38 +1,18 @@
-install Docker steps: 
-isnatll Docker from https://hub.docker.com/
-install rabbitmq from https://hub.docker.com/_/rabbitmq
-run the commnad set confuguration setting 
+# Real Estate Doc Flow
 
-$ docker run -d  --name my-rabbit -p 15672:15672 -p 5672:5672  rabbitmq:management
+## Description
+Set up Docker containers for a .NET Core application, RabbitMQ, and PostgreSQL using Docker Compose.
 
-yml file settings
+## Prerequisites
+- Docker installed on your system. You can download and install Docker from [Docker Hub](https://hub.docker.com/).
 
-version: '3.8'
+## Installation
 
-services:
-  myapp:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5000:80"  # Assuming your .NET Core app listens on port 80 inside the container
-    depends_on:
-      - rabbitmq
+### 1. Install Docker
+- Visit [Docker Hub](https://hub.docker.com/) and follow the instructions to download and install Docker for your operating system.
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - "5672:5672"  # RabbitMQ default port for AMQP
-      - "15672:15672"  # RabbitMQ management console port
-    environment:
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
-
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_DB: "real_estate_db"
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "admin"
-    ports:
-      - "5432:5432"
+### 2. Install RabbitMQ
+- Visit [RabbitMQ Docker Hub page](https://hub.docker.com/_/rabbitmq) and choose the version you want to use.
+- Run the following command in your terminal or command prompt to pull and run the RabbitMQ container:
+  ```bash
+  docker run -d --name my-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:management

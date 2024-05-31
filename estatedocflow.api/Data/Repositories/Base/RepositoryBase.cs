@@ -11,17 +11,17 @@ namespace estatedocflow.api.Data.Repositories.Base
         {
             _context = context;
         }
-        public virtual void Create(T Entity)
+        public virtual void Create(T entity)
         {
-            _context.Set<T>().Add(Entity);
+            _context.Set<T>().Add(entity);
         }
-        public virtual void Update(T Entity)
+        public virtual void Update(T entity)
         {
-            _context.Set<T>().Update(Entity);
+            _context.Set<T>().Update(entity);
         }
-        public void Delete(T Entity)
+        public void Delete(T entity)
         {
-            _context.Set<T>().Remove(Entity);
+            _context.Set<T>().Remove(entity);
         }
         public async Task SaveChangesAsync()
         {
@@ -35,17 +35,17 @@ namespace estatedocflow.api.Data.Repositories.Base
         {
             return _context.Set<T>().Where(expression).AsNoTracking();
         }
-        public virtual void BulkCreate(IQueryable<T> Entities)
+        public virtual void BulkCreate(IEnumerable<T> entities)
         {
-            _context.Set<T>().AddRange(Entities);
+            _context.Set<T>().AddRange(entities);
         }
-        public virtual void BulkUpdate(IQueryable<T> Entities)
+        public virtual void BulkUpdate(IEnumerable<T> entities)
         {
-            _context.Set<T>().UpdateRange(Entities);
+            _context.Set<T>().UpdateRange(entities);
         }
-        public virtual void BulkDelete(IQueryable<T> Entities)
+        public virtual void BulkDelete(IEnumerable<T> entities)
         {
-            _context.Set<T>().RemoveRange(Entities);
+            _context.Set<T>().RemoveRange(entities);
         }
     }
 }

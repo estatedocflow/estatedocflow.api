@@ -94,7 +94,7 @@ public class HouseService : IHouseService
         {
             sr.Success = false;
             sr.Code = (int)HttpStatusCode.NotImplemented;
-            sr.Message = $"{ex.Message}, House not inserted, something went wrong.";
+            sr.Message = $"{ex.Message}, House not inserted, something went wrong. Inner Exception: {ex.InnerException}";
         }
         return sr;
     }
@@ -276,7 +276,6 @@ public class HouseService : IHouseService
         {
             if (patchPhotoDto.PhotoUrls.Any())
             {
-                // Todo generate photo url
 
                 var houseAttachments = patchPhotoDto.PhotoUrls.Select(photoUrl => new HouseAttachment
                 {
@@ -331,7 +330,6 @@ public class HouseService : IHouseService
         {
             if (patchDocumentDto.Documents.Count() > 0)
             {
-                // Todo generate document url
 
                 var houseAttachments = patchDocumentDto.Documents.Select(document => new HouseAttachment
                 {

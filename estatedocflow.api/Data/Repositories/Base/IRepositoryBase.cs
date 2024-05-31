@@ -6,12 +6,12 @@ namespace estatedocflow.api.Data.Repositories.Base
     {
         IQueryable<T> FindAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
-        void Create(T Entity);
-        void Update(T Entity);
-        void Delete(T Entity);
+        void Create(T entity);
+        void Update(T entity);
+        void Delete(T entity);
         Task SaveChangesAsync();
-        void BulkCreate(IQueryable<T> Entities);
-        void BulkUpdate(IQueryable<T> Entities);
-        void BulkDelete(IQueryable<T> Entities);
+        void BulkCreate(IEnumerable<T> entities);
+        void BulkUpdate(IEnumerable<T> entities);
+        void BulkDelete(IEnumerable<T> entities);
     }
 }
