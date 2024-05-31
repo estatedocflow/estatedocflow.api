@@ -15,7 +15,7 @@ namespace estatedocflow.api.Extensions
         }
         public static void ConfigureService(this WebApplicationBuilder app)
         {
-            app.Services.AddScoped<IRabbitMQService, RabbitMQService>();
+            app.Services.AddScoped<IRabbitMqService, RabbitMqService>();
             app.Services.AddScoped<IHouseService, HouseService>();
             app.Services.AddScoped<FileStore>();
         }        

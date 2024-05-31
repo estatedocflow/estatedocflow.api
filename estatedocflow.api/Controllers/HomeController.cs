@@ -7,15 +7,15 @@ namespace estatedocflow.api.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly IRabbitMQService _rabbitMQService;
-        public HomeController(IRabbitMQService rabbitMqService)
+        private readonly IRabbitMqService _rabbitMqService;
+        public HomeController(IRabbitMqService rabbitMqService)
         {
-            _rabbitMQService = rabbitMqService;
+            _rabbitMqService = rabbitMqService;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            _rabbitMQService.SendMessage("Hello RabbitMQ!");  
+            _rabbitMqService.SendMessage("Hello RabbitMQ!");  
             return Ok();
         }
     }
